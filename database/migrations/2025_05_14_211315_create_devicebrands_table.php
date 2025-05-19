@@ -1,4 +1,5 @@
-<?php
+ <?php
+
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -6,29 +7,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
         Schema::create('devicebrands', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image'); // path or filename of the brand image
+            $table->string('name')->comment('Brand name');
+            $table->string('image')->comment('Path or filename of the brand image');
             $table->timestamps();
-
-            // يمكنك إضافة فهارس إضافية هنا إذا لزم الأمر
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('devicebrands');
     }

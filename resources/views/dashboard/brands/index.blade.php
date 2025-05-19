@@ -172,17 +172,22 @@
                                 <option value="samsung">Samsung</option>
                             </select>
                         </div> --}}
+
+
                         <div class="form-group">
                             <label for="brand_id">Brands</label>
                             <select name="brand_id" id="brand_id" class="form-control" required>
                                 <option value="" selected disabled>Please select your brands</option>
                                 @foreach ($brands as $brand)
                                     <option value="{{ $brand->id }}">
-                                        {{ $brand->brand }}
+                                        {{ $brand->devicebrand_id }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
+
+
+
 
                         <div class="form-group">
                             <label for="model">Model</label>
