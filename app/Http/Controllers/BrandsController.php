@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Brands;
+use Illuminate\Http\Request;
+
+class BrandsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+                $brands= Brands::all();
+                // $brands = Brands::orderBy('id', 'desc')->paginate(10);
+                return view('dashboard.brands.index', compact('brands'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'serial_number' => 'required|string|unique:brands,serial_number',
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+        ]);
+        $b_exists = Brands::where('serial_number', $validatedData['serial_number'])->exists();
+
+ if ($b_exists) {
+            session()->flash('Error', 'The serial number already exists');
+            return redirect('/brands');
+        } else {
+            Brands::create([
+                'serial_number' => $validatedData['serial_number'],
+                'brand' => $validatedData['brand'],
+                'model' => $validatedData['model'],
+            ]);
+            session()->flash('Add', 'Add successful');
+            return redirect('/brands');
+        }    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+                return Brands::findOrFail($id);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+                 $id = $request->id;
+
+        $validatedData = $request->validate([
+            'serial_number' => 'required|string|unique:brands,serial_number,' . $id,
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+        ]);
+
+        $brands = Brands::findOrFail($id);
+        $brands->update([
+            'serial_number' => $request->serial_number,
+            'brand' => $request->brand,
+            'model' => $request->model,
+        ]);
+
+        session()->flash('edit', 'The section has been successfully modified');
+        return redirect('/brands');
+     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Request $request)
+    {
+        // $brand = Brands::findOrFail($id);
+        // $brand->delete();
+
+        // return response()->json(['message' => 'Brand deleted successfully']);
+
+        $id=$request->id;
+        Brands::find($id)->delete();
+        session()->flash('delete', 'Deleted successfully');
+        return redirect('/brands');
+    }
+}
