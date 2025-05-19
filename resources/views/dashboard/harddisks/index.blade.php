@@ -123,7 +123,7 @@
 
                                         @can('Delete')
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $x->id }}" data-name="{{ $x->model }}"
+                                                data-id="{{ $x->id }}" data-model="{{ $x->model }}"
                                                 data-toggle="modal" href="#modaldemo9" title="Delete"><i
                                                     class="las la-trash"></i></a>
                                         @endcan
@@ -206,7 +206,7 @@
                     <h6 class="modal-title">Delete</h6><button aria-label="Close" class="close" data-dismiss="modal"
                         type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="devicebrands/destroy" method="post">
+                <form action="harddisks/destroy" method="post">
                     {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">
@@ -252,7 +252,7 @@
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
 
-    <script>
+    {{-- <script>
         $('#exampleModal2').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
@@ -265,7 +265,7 @@
             modal.find('.modal-body #email').val(email);
             modal.find('.modal-body #phone').val(phone);
         })
-    </script>
+    </script> --}}
 
     <script>
         $('#modaldemo9').on('show.bs.modal', function(event) {

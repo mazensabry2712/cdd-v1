@@ -54,46 +54,106 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('harddisks.update', $devicebrands->id) }}" method="POST"
+                    <form action="{{ route('harddisks.update', $harddisks->id) }}" method="POST"
                         enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         @method('PUT')
 
+                        {{-- Model --}}
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="model" class="control-label">Model</label>
+                                <input type="text" class="form-control" id="model" name="model"
+                                    title="Please enter your Model" placeholder="Please enter your Model" required
+                                    value="{{ old('model', $harddisks->model) }}">
+                            </div>
 
-                        {{-- اسم البراند --}}
-                        <div class="form-group">
-                            <label for="name">Model</label>
-                            <input type="text" id="name" name="name" class="form-control"
-                                value="{{ old('name', $devicebrands->name) }}" required>
+                            <div class="col-md-4">
+                                <label for="health" class="control-label">Health</label>
+                                <select class="form-control" id="health" name="health" required>
+                                    <option value="">Select</option>
+                                    <option value="Good"
+                                        {{ old('health', $harddisks->health) == 'Good' ? 'selected' : '' }}>Good</option>
+                                    <option value="Warning"
+                                        {{ old('health', $harddisks->health) == 'Warning' ? 'selected' : '' }}>Warning
+                                    </option>
+                                    <option value="Critical"
+                                        {{ old('health', $harddisks->health) == 'Critical' ? 'selected' : '' }}>Critical
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="interface" class="control-label">Interface</label>
+                                <select class="form-control" id="interface" name="interface" required>
+                                    <option value="">Select</option>
+                                    <option value="SATA"
+                                        {{ old('interface', $harddisks->interface) == 'SATA' ? 'selected' : '' }}>SATA
+                                    </option>
+                                    <option value="NVMe"
+                                        {{ old('interface', $harddisks->interface) == 'NVMe' ? 'selected' : '' }}>NVMe
+                                    </option>
+                                    <option value="SAS"
+                                        {{ old('interface', $harddisks->interface) == 'SAS' ? 'selected' : '' }}>SAS
+                                    </option>
+                                    <option value="PCIe"
+                                        {{ old('interface', $harddisks->interface) == 'PCIe' ? 'selected' : '' }}>PCIe
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
+                        {{-- Capacity, Unit, Serial --}}
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label for="capacity_gb" class="control-label">Capacity Value</label>
+                                <input type="number" class="form-control" id="capacity_gb" name="capacity_gb"
+                                    title="Please enter the capacity value" required min="0" step="1"
+                                    placeholder="Enter capacity value"
+                                    value="{{ old('capacity_gb', $harddisks->capacity_gb) }}">
+                            </div>
 
+                            <div class="col-md-4">
+                                <label for="capacity_unit" class="control-label">Capacity Unit</label>
+                                <select class="form-control" id="capacity_unit" name="capacity_unit" required>
+                                    <option value="">Select</option>
+                                    <option value="GB"
+                                        {{ old('capacity_unit', $harddisks->capacity_unit) == 'GB' ? 'selected' : '' }}>GB
+                                    </option>
+                                    <option value="TB"
+                                        {{ old('capacity_unit', $harddisks->capacity_unit) == 'TB' ? 'selected' : '' }}>TB
+                                    </option>
+                                </select>
+                            </div>
 
-
-
-
-                        {{-- شعار البراند --}}
-                        <div class="form-group mt-4">
-                            <label>Brand Logo</label>
-                            <input type="file" name="image" class="dropify" data-height="100"
-                                data-default-file="{{ $devicebrands->image ? asset('storage/' . $devicebrands->image) : '' }}"
-                                accept=".jpg, .png, image/jpeg, image/png" />
-                            <small class="form-text text-muted">
-                                Formats: jpeg, jpg, png. over: 2 MB.
-                            </small>
+                            <div class="col-md-4">
+                                <label for="serial_number" class="control-label">Serial Number</label>
+                                <input type="text" class="form-control" id="serial_number" name="serial_number"
+                                    title="Please enter your serial number" required placeholder="Like: SN0XYZ12345"
+                                    value="{{ old('serial_number', $harddisks->serial_number) }}">
+                            </div>
                         </div>
 
+                        {{-- PDF Upload --}}
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <label class="control-label d-block mb-2">PDF File <span
+                                        class="text-danger">*</span></label>
+                                <input type="file" name="pdf" id="pdf" class="dropify"
+                                    accept="application/pdf" data-height="70" data-allowed-file-extensions="pdf"
+                                    data-max-file-size="5M" data-errors-position="outside"
+                                    data-default-file="{{ $harddisks->pdf ? asset('storage/' . $harddisks->pdf) : '' }}"
+                                    data-err-message="Please upload a valid PDF file." />
+                            </div>
+                        </div>
 
-
-
-
-
-
-                        {{-- زر الحفظ --}}
+                        {{-- Submit Button --}}
                         <div class="text-center mt-4">
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
+
+
                 </div>
             </div>
         </div>

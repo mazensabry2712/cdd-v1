@@ -19,7 +19,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource( 'brands', BrandsController::class);
 
     Route::resource( 'devicebrands', DevicebrandsController::class);
+
     Route::resource( 'harddisks', HardDiskController::class);
+    
     Route::get('/harddisks/{id}/download', [HarddiskController::class, 'download'])->name('harddisks.download');
 Route::get('/harddisks/{id}/print', [HarddiskController::class, 'print'])->name('harddisks.print');
 

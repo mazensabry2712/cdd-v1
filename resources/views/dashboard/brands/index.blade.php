@@ -193,8 +193,6 @@
                             @endforeach
                         </select>
 
-
-
                         <div class="form-group mt-4">
                             <label for="model">Model</label>
                             <input type="text" class="form-control" id="model" name="model"
@@ -207,8 +205,6 @@
                                 name="serial_number" placeholder="Enter serial number" required>
                             <small class="form-text text-muted">Only letters, numbers, and hyphens allowed.</small>
                         </div>
-
-
 
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-outline-primary">Add</button>

@@ -120,8 +120,8 @@ class HarddiskController extends Controller
      */
     public function edit(string $id)
     {
-        $harddisk = Harddisk::findOrFail($id);
-        return view('dashboard.harddisks.edit', compact('harddisk'));
+        $harddisks = Harddisk::findOrFail($id);
+        return view('dashboard.harddisks.edit', compact('harddisks'));
     }
 
     /**
@@ -176,7 +176,7 @@ class HarddiskController extends Controller
       session()->flash('success', 'Hard disk updated successfully');
     return redirect()->route('harddisks.index');
 }
-    
+
 
     /**
      * Remove the specified resource from storage.
