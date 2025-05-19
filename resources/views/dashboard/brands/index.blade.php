@@ -109,8 +109,7 @@
                                     <td>
                                         @can('Edit')
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-id="{{ $brand->id }}"
-                                                data-name="{{ $brand->deviceBrand->name}}"
+                                                data-id="{{ $brand->id }}" data-name="{{ $brand->deviceBrand->name }}"
                                                 data-model="{{ $brand->model }}" data-phone="{{ $brand->serial_number }}"
                                                 data-toggle="modal" href="#exampleModal2" title="Upadte"><i
                                                     class="las la-pen"></i></a>
@@ -118,13 +117,15 @@
 
                                         @can('Delete')
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $brand->id }}"
-                                                data-name="{{ $brand->deviceBrand->name }}" data-toggle="modal"
-                                                href="#modaldemo9" title="Delete"><i class="las la-trash"></i></a>
+                                                data-id="{{ $brand->id }}" data-name="{{ $brand->deviceBrand->name }}"
+                                                data-toggle="modal" href="#modaldemo9" title="Delete"><i
+                                                    class="las la-trash"></i></a>
                                         @endcan
                                     </td>
 
-                                    <td>{{ $brand->deviceBrand->name}}</td>
+                                    {{-- <td>{{ $brand->deviceBrand->name }}</td> --}}
+                            <td>         {{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td>
+
                                     <td>{{ $brand->model }}</td>
                                     <td>{{ $brand->serial_number }}</td>
 
@@ -154,13 +155,16 @@
                     <form action="{{ route('brands.store') }}" method="post">
                         @csrf
 
-                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Brands</label>
                         <select name="devicebrand_id" id="devicebrand_id" class="form-control" required>
-                            <option value="" selected disabled> --Select the Brand--</option>
-                            @foreach ($deviceBrands as $deviceBrand)
-                                <option value="{{ $deviceBrand->id }}">{{ $deviceBrand->name }}</option>
+                            <option value="" selected disabled>-- Select the Brand --</option>
+                            @foreach ($deviceBrands as $db)
+                                <option value="{{ $db->id }}"
+                                    {{ old('devicebrand_id') == $db->id ? 'selected' : '' }}>
+                                    {{ $db->name }}
+                                </option>
                             @endforeach
                         </select>
+
 
 
                         <div class="form-group mt-4">

@@ -12,8 +12,8 @@ class BrandsController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-                $brands= Brands::all();
+    {           $brands = Brands::with('deviceBrand')->get();
+                // $brands= Brands::all();
                 $deviceBrands= DeviceBrands::all();
                 return view('dashboard.brands.index', compact('deviceBrands', 'brands'));
     }
@@ -33,7 +33,7 @@ class BrandsController extends Controller
     {
         $validatedData = $request->validate([
             'serial_number' => 'required|string|unique:brands,serial_number',
-            'devicebrand_id' => 'required|string|max:255',
+'devicebrand_id' => 'required|integer|exists:devicebrands,id',
             'model' => 'required|string|max:255',
         ]);
         $b_exists = Brands::where('serial_number', $validatedData['serial_number'])->exists();

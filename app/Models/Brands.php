@@ -1,20 +1,5 @@
 <?php
 
-// namespace App\Models;
-
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
-
-// class Brands extends Model
-// {
-//     use HasFactory;
-//       protected $fillable = ['serial_number', 'brand', 'model'];
-
-//       public function devicebrand()
-// {
-//     return $this->belongsTo(Devicebrands::class);
-// }
-// }
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,15 +10,13 @@ class Brands extends Model
     use HasFactory;
 
     protected $table = 'brands';
-    protected $fillable = ['serial_number', 'model', 'devicebrand_id'];
+    protected $fillable = ['serial_number', 'devicebrand_id', 'model'];
 
     /**
-     * One Brand belongs to one DeviceBrand
+     * عكس علاقة hasMany في DeviceBrands
      */
     public function deviceBrand()
-   {
-   return $this->belongsTo('App\Models\Devicebrands');
-   }
-
-
+    {
+        return $this->belongsTo(DeviceBrands::class, 'devicebrand_id');
+    }
 }
