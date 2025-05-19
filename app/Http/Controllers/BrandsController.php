@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brands;
+use App\Models\DeviceBrands;
 use Illuminate\Http\Request;
 
 class BrandsController extends Controller
@@ -13,8 +14,8 @@ class BrandsController extends Controller
     public function index()
     {
                 $brands= Brands::all();
-                // $brands = Brands::orderBy('id', 'desc')->paginate(10);
-                return view('dashboard.brands.index', compact('brands'));
+                $deviceBrands= DeviceBrands::all();
+                return view('dashboard.brands.index', compact('deviceBrands', 'brands'));
     }
 
     /**
@@ -32,7 +33,7 @@ class BrandsController extends Controller
     {
         $validatedData = $request->validate([
             'serial_number' => 'required|string|unique:brands,serial_number',
-            'brand' => 'required|string|max:255',
+            'devicebrand_id' => 'required|string|max:255',
             'model' => 'required|string|max:255',
         ]);
         $b_exists = Brands::where('serial_number', $validatedData['serial_number'])->exists();
@@ -43,7 +44,7 @@ class BrandsController extends Controller
         } else {
             Brands::create([
                 'serial_number' => $validatedData['serial_number'],
-                'brand' => $validatedData['brand'],
+                'devicebrand_id' => $validatedData['devicebrand_id'],
                 'model' => $validatedData['model'],
             ]);
             session()->flash('Add', 'Add successful');
@@ -75,14 +76,14 @@ class BrandsController extends Controller
 
         $validatedData = $request->validate([
             'serial_number' => 'required|string|unique:brands,serial_number,' . $id,
-            'brand' => 'required|string|max:255',
+            'devicebrand_id' => 'required|string|max:255',
             'model' => 'required|string|max:255',
         ]);
 
         $brands = Brands::findOrFail($id);
         $brands->update([
             'serial_number' => $request->serial_number,
-            'brand' => $request->brand,
+            'devicebrand_id' => $request->brand,
             'model' => $request->model,
         ]);
 

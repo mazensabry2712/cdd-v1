@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('devicebrands', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->comment('Brand name');
-            $table->string('image')->comment('Path or filename of the brand image');
+            $table->string('name');
+            $table->string('image');
             $table->timestamps();
         });
     }

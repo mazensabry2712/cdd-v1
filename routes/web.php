@@ -15,7 +15,9 @@ Route::group(['middleware' => ['auth']], function() {
      ->names('dashboard');
     Route::resource('am', AamsController::class);
         Route::resource('pm', PpmsController::class);
+
     Route::resource( 'brands', BrandsController::class);
+
     Route::resource( 'devicebrands', DevicebrandsController::class);
     Route::resource( 'harddisks', HardDiskController::class);
     Route::get('/harddisks/{id}/download', [HarddiskController::class, 'download'])->name('harddisks.download');

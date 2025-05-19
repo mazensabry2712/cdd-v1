@@ -31,7 +31,9 @@ class Brands extends Model
      * One Brand belongs to one DeviceBrand
      */
     public function deviceBrand()
-    {
-        return $this->belongsTo(Devicebrands::class, 'devicebrand_id');
-    }
+   {
+   return $this->belongsTo('App\Models\Devicebrands');
+   }
+
+
 }
