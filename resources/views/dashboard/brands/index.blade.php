@@ -102,29 +102,29 @@
 
                             <tbody>
                                 <?php $i = 0; ?>
-                                @foreach ($brands as $brand)
-                                    <?php $i++; ?>
+                                {{-- @foreach ($brands as $brand)
+
 
                                     <td>{{ $i }}</td>
                                     <td>
                                         @can('Edit')
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-id="{{ $brand->id }}" data-name="{{ $brand->deviceBrand->name }}"
-                                                data-model="{{ $brand->model }}" data-phone="{{ $brand->serial_number }}"
-                                                data-toggle="modal" href="#exampleModal2" title="Upadte"><i
-                                                    class="las la-pen"></i></a>
+                                                data-id="{{ $brand->id }}" data-name ="{{ $brand->deviceBrand->name }}"
+                                                data-model="{{ $brand->model }}"
+                                                data-serial_number="{{ $brand->serial_number }}" data-toggle="modal"
+                                                href="#exampleModal2" title="Upadte"><i class="las la-pen"></i></a>
                                         @endcan
 
                                         @can('Delete')
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $brand->id }}" data-name="{{ $brand->deviceBrand->name }}"
+                                                data-id="{{ $brand->id }}" data-serial_number="{{ $brand->serial_number }}"
                                                 data-toggle="modal" href="#modaldemo9" title="Delete"><i
                                                     class="las la-trash"></i></a>
                                         @endcan
                                     </td>
 
-                                    {{-- <td>{{ $brand->deviceBrand->name }}</td> --}}
-                            <td>         {{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td>
+                                    {{-- <td>{{ $brand->deviceBrand->name }}</td>
+                                    <td> {{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td>
 
                                     <td>{{ $brand->model }}</td>
                                     <td>{{ $brand->serial_number }}</td>
@@ -132,7 +132,34 @@
 
 
                                     </tr>
+                                @endforeach --}}
+                                @foreach ($brands as $brand)
+                                    <?php $i++; ?>
+                                    <tr>
+                                        <td>{{ $i }}</td>
+                                        <td>
+                                            @can('Edit')
+                                                <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                    data-id="{{ $brand->id }}"  data-devicebrand_id="{{ $brand->devicebrand_id }}"
+                                                    data-model="{{ $brand->model }}"
+                                                    data-serial_number="{{ $brand->serial_number }}" data-toggle="modal"
+                                                    href="#exampleModal2" title="Update"><i class="las la-pen"></i></a>
+                                            @endcan
+
+                                            @can('Delete')
+                                                <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                    data-id="{{ $brand->id }}"
+                                                     data-devicebrand_id="{{ $brand->devicebrand_id }}"
+                                                    data-serial_number="{{ $brand->serial_number }}" data-toggle="modal"
+                                                    href="#modaldemo9" title="Delete"><i class="las la-trash"></i></a>
+                                            @endcan
+                                        </td>
+                                        <td>{{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td>
+                                        <td>{{ $brand->model }}</td>
+                                        <td>{{ $brand->serial_number }}</td>
+                                    </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -156,6 +183,7 @@
                         @csrf
 
                         <select name="devicebrand_id" id="devicebrand_id" class="form-control" required>
+                            <label for="devicebrand_id" class="col-form-label">Brands</label>
                             <option value="" selected disabled>-- Select the Brand --</option>
                             @foreach ($deviceBrands as $db)
                                 <option value="{{ $db->id }}"
@@ -203,14 +231,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit PM</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Device</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-                    <form action="pm/update" method="post" autocomplete="off">
+                    <form action="brands/update" method="post" autocomplete="off">
                         {{ method_field('put') }}
                         {{ csrf_field() }}
 
@@ -218,26 +246,32 @@
 
                         <div class="form-group">
                             <input type="hidden" name="id" id="id" value="">
-                            <label for="recipient-name" class="col-form-label">PM Name</label>
-                            <input class="form-control" name="name" id="name" type="text">
+                            <label for="devicebrand_id" class="col-form-label">Brandse</label>
+                            <select name="devicebrand_id" id="devicebrand_id" class="form-control" required>
+                                <option value="" selected disabled>-- Select the Brand --</option>
+                                @foreach ($deviceBrands as $db)
+                                    <option value="{{ $db->id }}"
+                                        {{ old('devicebrand_id') == $db->id ? 'selected' : '' }}>
+                                        {{ $db->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
 
 
-
-
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">PM Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                        <div class="form-group mt-4">
+                            <label for="model">Model</label>
+                            <input type="text" class="form-control" id="model" name="model"
+                                placeholder="Enter model name" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">PM Phone</label>
-                            <input type="tel" class="form-control" id="phone" name="phone">
+                        <div class="form-group mt-4">
+                            <label for="serial_number">Serial Number</label>
+                            <input type="text" pattern="[A-Za-z0-9\-]+" class="form-control" id="serial_number"
+                                name="serial_number" placeholder="Enter serial number" required>
+                            <small class="form-text text-muted">Only letters, numbers, and hyphens allowed.</small>
                         </div>
-
-
-
 
 
                 </div>
@@ -258,7 +292,7 @@
                     <h6 class="modal-title">Delete</h6><button aria-label="Close" class="close" data-dismiss="modal"
                         type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="pm/destroy" method="post">
+                {{-- <form action="brands/destroy" method="post">
                     {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">
@@ -271,13 +305,27 @@
                         <button type="submit" class="btn btn-danger">Confirm</button>
                     </div>
             </div>
-            </form>
+            </form> --}}
+                <form action="{{ route('brands.destroy', 'test') }}" method="post">
+                    {{ method_field('delete') }}
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <p>Are you sure about the deletion process?</p><br>
+                        <input type="hidden" name="id" id="id" value="">
+                        <input class="form-control" name="serial_number" id="serial_number" type="text" readonly>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </div>
+                </form>
+
+            </div>
         </div>
-    </div>
 
 
 
-    <!-- Container closed -->
+        <!-- Container closed -->
     </div>
     <!-- main-content closed -->
 @endsection
@@ -308,29 +356,39 @@
         $('#exampleModal2').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
-            var devicebrand_id = button.data('devicebrand_id')
+            var name = button.data('name')
             var model = button.data('model')
             var serial_number = button.data('serial_number')
+             var devicebrand_id = button.data('devicebrand_id');
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #devicebrand_id').val(devicebrand_id);
+            modal.find('.modal-body #name').val(name);
             modal.find('.modal-body #model').val(model);
             modal.find('.modal-body #serial_number').val(serial_number);
+            modal.find('#devicebrand_id').val(devicebrand_id);
         })
     </script>
 
     <script>
+        // $('#modaldemo9').on('show.bs.modal', function(event) {
+        //     var button = $(event.relatedTarget)
+        //     var id = button.data('id')
+        //     var serial_number = button.data('serial_number')
+        //     // var email = button.data('email')
+        //     // var phone = button.data('phone')
+        //     var modal = $(this)
+        //     modal.find('.modal-body #id').val(id);
+        //     modal.find('.modal-body #serial_number').val(serial_number);
+        //     // modal.find('.modal-body #email').val(email);
+        //     // modal.find('.modal-body #phone').val(phone);
+        // })
         $('#modaldemo9').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
-            var devicebrand_id = button.data('devicebrand_id')
-            // var email = button.data('email')
-            // var phone = button.data('phone')
+            var serial_number = button.data('serial_number')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #devicebrand_id').val(devicebrand_id);
-            // modal.find('.modal-body #email').val(email);
-            // modal.find('.modal-body #phone').val(phone);
+            modal.find('.modal-body #serial_number').val(serial_number);
         })
     </script>
 @endsection

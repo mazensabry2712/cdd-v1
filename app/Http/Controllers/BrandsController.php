@@ -76,16 +76,16 @@ class BrandsController extends Controller
 
         $validatedData = $request->validate([
             'serial_number' => 'required|string|unique:brands,serial_number,' . $id,
-            'devicebrand_id' => 'required|string|max:255',
+'devicebrand_id' => 'required|integer|exists:devicebrands,id',
             'model' => 'required|string|max:255',
         ]);
 
         $brands = Brands::findOrFail($id);
-        $brands->update([
-            'serial_number' => $request->serial_number,
-            'devicebrand_id' => $request->brand,
-            'model' => $request->model,
-        ]);
+    $brands->update([
+    'serial_number' => $request->serial_number,
+    'devicebrand_id' => $request->devicebrand_id, // ✅ التصحيح هنا
+    'model' => $request->model,
+]);
 
         session()->flash('edit', 'The section has been successfully modified');
         return redirect('/brands');
