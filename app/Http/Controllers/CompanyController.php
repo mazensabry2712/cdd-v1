@@ -43,6 +43,7 @@ return redirect('/company');
         $id = $request->id;
 
         $request->validate([
+            
              'name'    => 'required|string|max:255'.$id,
              'web' => 'required|url',
             'email'   => 'required|email',

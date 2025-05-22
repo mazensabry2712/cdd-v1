@@ -96,6 +96,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th> Operations </th>
+                                    <th> Compony </th>
                                     <th> Name </th>
                                     <th> Location </th>
                                     <th> Country </th>
@@ -118,7 +119,7 @@
                                     <td>
                                         @can('Edit')
                                             <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"
+                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"data-compony_id="{{ $x->compony_id }}"
                                                 data-br_location="{{ $x->br_location }}" data-country="{{ $x->country }}"
                                                 data-city="{{ $x->city }}" data-phone="{{ $x->phone }}"
                                                 data-toggle="modal" href="#exampleModal2" title="Upadte"><i
@@ -132,7 +133,7 @@
                                                     class="las la-trash"></i></a>
                                         @endcan
                                     </td>
-
+                                    <td>{{ $x->compony->name }}</td>
                                     <td>{{ $x->name }}</td>
                                     <td>{{ $x->br_location }}</td>
                                     <td>{{ $x->country }}</td>
@@ -163,26 +164,36 @@
                     <form action="{{ route('branches.store') }}" method="post">
                         @csrf
 
+                        <select name="compony_id" id="compony_id" class="form-control" required>
+                            <label for="compony_id" class="col-form-label">Compony</label>
+                            <option value="" selected disabled>-- Select the Compony --</option>
+                            @foreach ($companies as $db)
+                                <option value="{{ $db->id }}" {{ old('compony_id') == $db->id ? 'selected' : '' }}>
+                                    {{ $db->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
                         <div class="form-group">
                             <label for="name"> Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"
-                                required>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter your name" required>
                         </div>
 
                         <div class="form-group">
                             <label for="br_location"> Location</label>
                             <input type="text" class="form-control" id="br_location" name="br_location"
-                                  placeholder="Enter your Location"  required>
+                                placeholder="Enter your Location" required>
                         </div>
                         <div class="form-group">
                             <label for="country"> Country</label>
                             <input type="text" class="form-control" id="country" name="country"
-                                 placeholder="Enter Your Country "  required>
+                                placeholder="Enter Your Country " required>
                         </div>
                         <div class="form-group">
                             <label for="city"> City</label>
                             <input type="text" class="form-control" id="city" name="city"
-                                 placeholder ="Enter Your City"  required>
+                                placeholder ="Enter Your City" required>
                         </div>
                         <div class="form-group">
                             <label for="phone"> Phone</label>
@@ -228,10 +239,22 @@
                         {{ method_field('PUT') }}
                         {{ csrf_field() }}
 
-
-
                         <div class="form-group">
                             <input type="hidden" name="id" id="id" value="">
+                            <label for="compony_id" class="col-form-label">Compony</label>
+                            <select name="compony_id" id="compony_id" class="form-control" required>
+                                <option value="" selected disabled>-- Select the Compony --</option>
+                                @foreach ($companies as $db)
+                                    <option value="{{ $db->id }}"
+                                        {{ old('compony_id') == $db->id ? 'selected' : '' }}>
+                                        {{ $db->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+
                             <label for="recipient-name" class="col-form-label"> Name</label>
                             <input class="form-control" name="name" id="name" type="text">
                         </div>
@@ -329,10 +352,10 @@
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
 
     <script>
-
         $('#exampleModal2').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
+            var compony_id= button.data('compony_id')
             var name = button.data('name')
             var br_location = button.data('br_location')
             var country = button.data('country')
@@ -340,6 +363,7 @@
             var phone = button.data('phone')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #compony_id').val(compony_id);
             modal.find('.modal-body #name').val(name);
             modal.find('.modal-body #br_location').val(br_location);
             modal.find('.modal-body #country').val(country);

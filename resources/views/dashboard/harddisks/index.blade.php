@@ -148,7 +148,7 @@
                                                 {{-- زر عرض PDF --}}
                                                 <a href="{{ route('harddisks.download', $x->id) }}" target="_blank"
                                                     class="inline-flex items-center text-red-600 hover:text-red-800 transition duration-200">
-                                                
+
                                                     <span class="font-medium text-sm">Show PDF |</span>
                                                 </a>
 
@@ -161,15 +161,6 @@
                                             </div>
                                         @endempty
                                     </td>
-
-
-
-
-
-
-
-
-
 
                                     </tr>
                                 @endforeach

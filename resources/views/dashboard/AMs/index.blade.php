@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-   Responsible | X Net System - CDD V1.0
+    Responsible | X Net System - CDD V1.0
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -152,27 +152,27 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title"> Add Responsible </h6><button aria-label="Close" class="close" data-dismiss="modal"
-                        type="button"><span aria-hidden="true">&times;</span></button>
+                    <h6 class="modal-title"> Add  </h6><button aria-label="Close" class="close"
+                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('am.store') }}" method="post">
                         @csrf
 
                         <div class="form-group">
-                            <label for="name">Responsible Name</label>
+                            <label for="name"> Name</label>
                             <input type="text" class="form-control" id="name" name="name" {{--  placeholder="Enter AM name" --}}
                                 required>
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Responsible Email</label>
+                            <label for="email"> Email</label>
                             <input type="email" class="form-control" id="email" name="email"
                                 {{--  placeholder="Enter AM email" --}}required>
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Responsible Phone</label>
+                            <label for="phone"> Phone</label>
                             <input type="tel" class="form-control" id="phone" name="phone"
                                 {{--  placeholder="Enter AM phone number"   pattern="[0-9]{10}" --}}required>
                         </div>

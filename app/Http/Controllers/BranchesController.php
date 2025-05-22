@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\branches;
+use App\Models\company;
 use Illuminate\Http\Request;
 
 class BranchesController extends Controller
@@ -13,7 +14,8 @@ class BranchesController extends Controller
     public function index()
     {
          $branches = Branches::all();
-        return view('dashboard.branches.index', compact('branches'));
+          $companies = company::all();
+        return view('dashboard.branches.index', compact('branches', 'companies'));
     }
 
     /**
@@ -21,7 +23,8 @@ class BranchesController extends Controller
      */
     public function create()
     {
-        //
+        $companies = company::all();
+        return view('dashboard.branches.create', compact('companies'));
     }
 
     /**
@@ -31,6 +34,8 @@ class BranchesController extends Controller
     {
         $validatedData = $request->validate(
             [
+
+                'compony_id'        => 'required|string|max:255',
                 'name'        => 'required|string|max:255',
            'br_location' => 'required|string|max:255',
             'country'     => 'required|string|max:100',
@@ -59,7 +64,8 @@ return redirect('/branches');
      */
     public function edit(branches $branches)
     {
-        //
+         $companies = company::all();
+        return view('dashboard.branches.create', compact('companies'));
     }
 
     /**
@@ -72,15 +78,18 @@ return redirect('/branches');
         $id = $request->id;
 
         $request->validate([
-            'name'        => 'required|string|max:255'.$id,
-              'br_location' => 'required|string|max:255',
-            'country'     => 'required|string|max:100',
-            'city'        => 'required|string|max:100',
-            'phone'       => 'required|string',
+            'compony_id'=> 'required|string|max:255'.$id,
+            'name' => 'required|string|max:255'.$id,
+            'br_location' => 'required|string|max:255',
+            'country'  => 'required|string|max:100',
+            'city'  => 'required|string|max:100',
+            'phone'  => 'required|string',
         ]);
 
         $Branches = Branches::find($id);
         $Branches->update([
+            'compony_id' => $request->compony_id,
+            'name' => $request->name,
             'br_location' => $request->br_location,
             'country' => $request->country,
             'city' => $request->city,

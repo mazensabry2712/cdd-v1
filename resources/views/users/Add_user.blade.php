@@ -93,15 +93,30 @@ Add User
                             </select>
                         </div>
                     </div>
+<div class="row mg-b-20">
+    <div class="col-xs-12 col-md-12">
+        <div class="form-group">
+            <label class="form-label">User Permission</label>
+            <select name="roles_name[]" class="form-control" multiple>
+                @foreach($roles as $value => $label)
+                    <option value="{{ $value }}"
+                        {{ in_array($value, old('roles_name', [])) ? 'selected' : '' }}>
+                        {{ $label }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
 
-                    <div class="row mg-b-20">
+                    {{-- <div class="row mg-b-20">
                         <div class="col-xs-12 col-md-12">
                             <div class="form-group">
                                 <label class="form-label"> User Permission</label>
                                 {!! Form::select('roles_name[]', $roles,[], array('class' => 'form-control','multiple')) !!}
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <button class="btn btn-main-primary pd-x-20" type="submit">Save</button>
                     </div>
