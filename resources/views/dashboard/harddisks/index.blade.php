@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    HardDisks | X Net System - CDD V1.0
+    Storage | X Net System - CDD V1.0
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -83,7 +83,7 @@
 
                 <div class="card-header pb-0">
                     @can('Add')
-                        <a class=" btn btn-outline-primary btn-block" href="{{ route('harddisks.create') }}"> Add HardDisk</a>
+                        <a class=" btn btn-outline-primary btn-block" href="{{ route('harddisks.create') }}"> Add Storage</a>
                     @endcan
                 </div>
 

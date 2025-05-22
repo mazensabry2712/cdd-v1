@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <title>Hard Disk #{{ $harddisk->id }}</title>
@@ -11,36 +12,45 @@
             font-size: 14px;
             margin: 30px;
         }
+
         header {
             text-align: center;
             margin-bottom: 20px;
         }
+
         h1 {
             font-size: 20px;
             margin-bottom: 5px;
         }
+
         p.date {
             font-size: 12px;
             color: #555;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-        table th, table td {
+
+        table th,
+        table td {
             border: 1px solid #000;
             padding: 8px;
         }
+
         table th {
             background-color: #f0f0f0;
             width: 30%;
             text-align: left;
             font-size: 14px;
         }
+
         table td {
             font-size: 14px;
         }
+
         footer {
             position: fixed;
             bottom: 20px;
@@ -51,6 +61,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -87,7 +98,7 @@
             <tr>
                 <th>Stored PDF</th>
                 <td>
-                    @if($harddisk->pdf && Storage::disk('public')->exists($harddisk->pdf))
+                    @if ($harddisk->pdf && Storage::disk('public')->exists($harddisk->pdf))
                         Yes ({{ basename($harddisk->pdf) }})
                     @else
                         No PDF File
@@ -102,4 +113,5 @@
     </footer>
 
 </body>
+
 </html>
