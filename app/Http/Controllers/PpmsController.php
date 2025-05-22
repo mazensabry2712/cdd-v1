@@ -29,25 +29,21 @@ class PpmsController extends Controller
      */
     public function store(Request $request)
     {
-     // التحقق من صحة البيانات الواردة في الطلب
 $validatedData = $request->validate([
     'name' => 'required|string|max:255',
     'email' => 'required|email|max:255',
     'phone' => 'required|string|max:15',
 ]);
 
-// التحقق من وجود سجل بالاسم المطلوب مسبقًا
 if (ppms::where('name', $validatedData['name'])->exists()) {
     session()->flash('Error', 'The name already exists');
-    return redirect('/pm');  // إعادة التوجيه إلى الصفحة المناسبة مع رسالة خطأ
+    return redirect('/pm');
 }
 
-// إنشاء السجل الجديد في قاعدة البيانات
 ppms::create($validatedData);
 
-// إعداد رسالة النجاح وإعادة التوجيه
 session()->flash('Add', 'Registration successful');
-return redirect('/pm'); // إعادة التوجيه إلى صفحة السجلات
+return redirect('/pm');
     }
 
     /**
@@ -90,7 +86,7 @@ return redirect('/pm'); // إعادة التوجيه إلى صفحة السجل�
 
         session()->flash('success', 'Pm updated successfully!');
                return redirect('/pm');
-         
+
     }
 
     /**

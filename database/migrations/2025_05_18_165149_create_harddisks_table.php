@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('harddisks', function (Blueprint $table) {
             $table->id();
-            $table->string('model', 100);
+              $table->foreignId('brands_id')
+                  ->constrained('brands')
+                  ->onDelete('cascade');
             $table->enum('health', ['Good', 'Warning', 'Critical']);
             $table->enum('interface', ['SATA', 'NVMe', 'SAS', 'PCIe'])??null;
             $table->unsignedInteger('capacity_gb');

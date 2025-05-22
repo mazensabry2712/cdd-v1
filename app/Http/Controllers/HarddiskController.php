@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brands;
 use App\Models\Harddisk;
 use App\Services\PdfService;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class HarddiskController extends Controller
     public function create()
     {
         $harddisks = Harddisk::all();
-        return view('dashboard.harddisks.create', compact('harddisks'));
+         $deviceBrands = Brands::all();
+        return view('dashboard.harddisks.create', compact('harddisks','deviceBrands'));
     }
 
     /**
@@ -41,7 +43,7 @@ class HarddiskController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'model'          => 'required|string|max:100',
+            'brands_id'          => 'required|string|max:100',
             'health'         => 'required|in:Good,Warning,Critical',
             'interface'      => 'nullable|in:SATA,NVMe,SAS,PCIe',
             'capacity_gb'    => 'required|integer|min:0',
@@ -51,7 +53,7 @@ class HarddiskController extends Controller
         ]);
 
         $data = [
-            'model'          => $validated['model'],
+            'brands_id'          => $validated['brands_id'],
             'health'         => $validated['health'],
             'interface'      => $validated['interface'],
             'capacity_gb'    => $validated['capacity_gb'],
@@ -132,7 +134,7 @@ class HarddiskController extends Controller
        $harddisks = Harddisk::findOrFail($id);
 
    $validated = $request->validate([
-        'model'          => 'required|string|max:100'.$harddisks->id,
+        'brands_id'          => 'required|string|max:100'.$harddisks->id,
         'health'         => 'required|in:Good,Warning,Critical',
         'interface'      => 'nullable|in:SATA,NVMe,SAS,PCIe',
         'capacity_gb'    => 'required|integer|min:0',
@@ -146,7 +148,7 @@ class HarddiskController extends Controller
     ]);
 
     $data = [
-        'model'          => $validated['model'],
+        'brands_id'          => $validated['brands_id'],
         'health'         => $validated['health'],
         'interface'      => $validated['interface'],
         'capacity_gb'    => $validated['capacity_gb'],

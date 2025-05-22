@@ -80,8 +80,8 @@ class AamsController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:255|unique:aams,name,' . $id,
-            'email' => 'required|email|unique:aams,email,' . $id,
-            'phone' => 'required|unique:aams,phone,' . $id,
+            'email' => 'required|email|unique:aams,email,' ,
+            'phone' => 'required|unique:aams,phone,' ,
         ]);
 
         $aams = aams::findOrFail($id);

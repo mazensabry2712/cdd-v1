@@ -154,7 +154,7 @@
                                                     href="#modaldemo9" title="Delete"><i class="las la-trash"></i></a>
                                             @endcan
                                         </td>
-                                        <td>{{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td>
+                                        <td>{{ optional($brand->deviceBrand)->name ?? '-- No --' }}</td>
                                         <td>{{ $brand->model }}</td>
                                         <td>{{ $brand->serial_number }}</td>
                                     </tr>

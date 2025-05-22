@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    HardDisks | X Net System - CDD V1.0
+    Branches | X Net System - CDD V1.0
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -19,7 +19,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">General</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    Hard Disk</span>
+                    Branches</span>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -81,9 +81,10 @@
         <div class="col-xl-12">
             <div class="card">
 
-                <div class="card-header pb-0">
-                    @can('Add')
-                        <a class=" btn btn-outline-primary btn-block" href="{{ route('harddisks.create') }}"> Add HardDisk</a>
+
+                <div class="card-header pb-0"> @can('Add')
+                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
+                            href="#modaldemo8"> Add Branch</a>
                     @endcan
                 </div>
 
@@ -95,13 +96,12 @@
                                 <tr>
                                     <th>#</th>
                                     <th> Operations </th>
-                                    <th> Model</th>
-                                    <th> Health</th>
-                                    <th> Interface</th>
-                                    <th> Capacity Value</th>
-                                    <th> Capacity Unit</th>
-                                    <th> Serial Number</th>
-                                    <th> PDF File</th>
+                                    <th> Name </th>
+                                    <th> Location </th>
+                                    <th> Country </th>
+                                    <th> City </th>
+                                    <th> Phone</th>
+
                                 </tr>
 
 
@@ -111,86 +111,33 @@
 
                             <tbody>
                                 <?php $i = 0; ?>
-                                @foreach ($harddisks as $x)
+                                @foreach ($branches as $x)
                                     <?php $i++; ?>
 
                                     <td>{{ $i }}</td>
                                     <td>
                                         @can('Edit')
-                                            <a class=" btn btn-sm btn-info" href="{{ route('harddisks.edit', $x->id) }}"
-                                                title="Upadte"><i class="las la-pen"></i></a>
+                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"
+                                                data-br_location="{{ $x->br_location }}" data-country="{{ $x->country }}"
+                                                data-city="{{ $x->city }}" data-phone="{{ $x->phone }}"
+                                                data-toggle="modal" href="#exampleModal2" title="Upadte"><i
+                                                    class="las la-pen"></i></a>
                                         @endcan
 
                                         @can('Delete')
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $x->id }}" data-model="{{ $x->model }}"
+                                                data-id="{{ $x->id }}" data-name="{{ $x->name }}"
                                                 data-toggle="modal" href="#modaldemo9" title="Delete"><i
                                                     class="las la-trash"></i></a>
                                         @endcan
                                     </td>
-                                    {{-- <td>{{ $x->model }}</td> --}}
-                                    <td>
-  {{ optional($harddisk->brand)->model ?? '— غير محدد' }}
-                                          {{-- <td>{{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td> --}}
 
-</td>
-                                    <td>{{ $x->health }}</td>
-                                    <td>{{ $x->interface }}</td>
-                                    <td>{{ $x->capacity_gb }}</td>
-                                    <td>{{ $x->capacity_unit }}</td>
-                                    <td>{{ $x->serial_number }}</td>
-                                    {{-- <td class="px-4 py-2 text-center">
-                                        @empty($x->pdf)
-                                            <span class="text-gray-400 italic">— No PDF —</span>
-                                        @else
-                                            <a href="{{ route('harddisks.download', $x->id) }}" target="_blank"
-                                                class="inline-flex items-center justify-center text-red-600 hover:text-red-800 transition duration-200">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1 text-red-600"
-                                                    viewBox="0 0 64 64" fill="currentColor">
-                                                    <path
-                                                        d="M44 2H16a4 4 0 0 0-4 4v52a4 4 0 0 0 4 4h32a4 4 0 0 0 4-4V14L44 2zM44 14H32V2.5L44 14z" />
-                                                </svg>
-                                                <span class="font-medium text-sm">Show PDF</span>
-                                            </a>
-                                        @endempty
-                                    </td> --}}
-                                    <td class="px-4 py-2 text-center">
-                                        @empty($x->pdf)
-                                            <span class="text-gray-400 italic">— No PDF —</span>
-                                        @else
-                                            <div class="flex justify-center space-x-3">
-                                                {{-- زر عرض PDF --}}
-                                                <a href="{{ route('harddisks.download', $x->id) }}" target="_blank"
-                                                    class="inline-flex items-center text-red-600 hover:text-red-800 transition duration-200">
-                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-red-600"
-                                                        viewBox="0 0 64 64" fill="currentColor">
-                                                        <path
-                                                            d="M44 2H16a4 4 0 0 0-4 4v52a4 4 0 0 0 4 4h32a4 4 0 0 0 4-4V14L44 2zM44 14H32V2.5L44 14z" />
-                                                    </svg> --}}
-                                                    <span class="font-medium text-sm">Show PDF |</span>
-                                                </a>
-
-                                                {{-- زر طباعة PDF --}}
-                                                <a href="{{ route('harddisks.print', $x->id) }}" target="_blank"
-                                                    class="inline-flex items-center text-blue-600 hover:text-blue-800 transition duration-200">
-                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-blue-600"
-                                                        viewBox="0 0 24 24" fill="currentColor">
-                                                        <path d="M6 9V2h12v7h4v13H2V9h4zm2-5v5h8V4H8zm10 7H6v7h12v-7z" />
-                                                    </svg> --}}
-                                                    <span class="font-medium text-sm">| Print</span>
-                                                </a>
-                                            </div>
-                                        @endempty
-                                    </td>
-
-
-
-
-
-
-
-
-
+                                    <td>{{ $x->name }}</td>
+                                    <td>{{ $x->br_location }}</td>
+                                    <td>{{ $x->country }}</td>
+                                    <td>{{ $x->city }}</td>
+                                    <td>{{ $x->phone }}</td>
 
                                     </tr>
                                 @endforeach
@@ -203,6 +150,130 @@
     </div>
 
 
+
+
+    <div class="modal" id="modaldemo8">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title"> Add Branches </h6><button aria-label="Close" class="close"
+                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('branches.store') }}" method="post">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="name"> Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="br_location"> Location</label>
+                            <input type="text" class="form-control" id="br_location" name="br_location"
+                                  placeholder="Enter your Location"  required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country"> Country</label>
+                            <input type="text" class="form-control" id="country" name="country"
+                                 placeholder="Enter Your Country "  required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city"> City</label>
+                            <input type="text" class="form-control" id="city" name="city"
+                                 placeholder ="Enter Your City"  required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"> Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone"
+                                placeholder="Enter AM phone number" {{-- pattern="[0-9]{10}" --}}required>
+                        </div>
+
+
+
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-primary">Add</button>
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Basic modal -->
+
+
+
+
+        <!-- /row -->
+    </div>
+
+
+    <!-- edit -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit AM</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="branches/update" method="post" autocomplete="off">
+                        {{ method_field('PUT') }}
+                        {{ csrf_field() }}
+
+
+
+                        <div class="form-group">
+                            <input type="hidden" name="id" id="id" value="">
+                            <label for="recipient-name" class="col-form-label"> Name</label>
+                            <input class="form-control" name="name" id="name" type="text">
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label for="br_location"> Location</label>
+                            <input type="text" class="form-control" id="br_location" name="br_location"
+                                {{--  placeholder="Enter AM name" --}} required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country"> Country</label>
+                            <input type="text" class="form-control" id="country" name="country"
+                                {{--  placeholder="Enter AM name" --}} required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city"> City</label>
+                            <input type="text" class="form-control" id="city" name="city"
+                                {{--  placeholder="Enter AM name" --}} required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-primary">Confirm</button>
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- delete -->
     <div class="modal" id="modaldemo9">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -211,7 +282,7 @@
                     <h6 class="modal-title">Delete</h6><button aria-label="Close" class="close" data-dismiss="modal"
                         type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="harddisks/destroy" method="post">
+                <form action="branches/destroy" method="post">
                     {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">
@@ -257,30 +328,35 @@
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
 
-    {{-- <script>
+    <script>
+
         $('#exampleModal2').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var name = button.data('name')
-            var email = button.data('email')
+            var br_location = button.data('br_location')
+            var country = button.data('country')
+            var city = button.data('city')
             var phone = button.data('phone')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
             modal.find('.modal-body #name').val(name);
-            modal.find('.modal-body #email').val(email);
+            modal.find('.modal-body #br_location').val(br_location);
+            modal.find('.modal-body #country').val(country);
+            modal.find('.modal-body #city').val(city);
             modal.find('.modal-body #phone').val(phone);
         })
-    </script> --}}
+    </script>
 
     <script>
         $('#modaldemo9').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
-            var model = button.data('model')
+            var name = button.data('name')
 
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
-            modal.find('.modal-body #model').val(model);
+            modal.find('.modal-body #name').val(name);
 
         })
     </script>

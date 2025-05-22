@@ -12,11 +12,14 @@ class Brands extends Model
     protected $table = 'brands';
     protected $fillable = ['serial_number', 'devicebrand_id', 'model'];
 
-    /**
-     * عكس علاقة hasMany في DeviceBrands
-     */
+  
     public function deviceBrand()
     {
         return $this->belongsTo(DeviceBrands::class, 'devicebrand_id');
+    }
+
+     public function Harddisk()
+    {
+        return $this->hasMany(Harddisk::class, 'brands_id');
     }
 }

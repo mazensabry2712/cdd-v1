@@ -26,18 +26,8 @@
                         <button id="myBtn" onclick="myFunction()">Pause</button>
                     </div> --}}
 
-
-
-
-
-
                 <div class="row wd-100p mx-auto text-center">
                     <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
-
-
-
-
-
 
                         <img src="{{ URL::asset('assets/img/media/login.png') }}"
                             class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
@@ -56,8 +46,8 @@
                                                 src="{{ URL::asset('assets/img/brand/favicon.png') }}"
                                                 class="sign-favicon ht-40" alt="logo"></a>
                                         <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">
-                                        X<span>Net</span>System - CDD V1.0
-                                        <br>
+                                        <!-- X<span>Net</span>System - CDD V1.0 -->
+                                        <!-- <br> -->
                                         X Net System - CDD V1.0
 
                                         </h1>
@@ -87,7 +77,7 @@
                                                 <button class="btn btn-main-primary btn-block" type="submit">Sign
                                                     In</button>
 
-                                                <div class="row row-xs">
+                                                <!-- <div class="row row-xs">
                                                     <div class="col-sm-6">
                                                         <button class="btn btn-block"><i class="fab fa-facebook-f"></i>
                                                             Signup with Facebook</button>
@@ -96,14 +86,15 @@
                                                         <button class="btn btn-info btn-block"><i
                                                                 class="fab fa-twitter"></i> Signup with Twitter</button>
                                                     </div>
-                                                </div>
+                                                </div> -->
+
                                             </form>
-                                            <div class="main-signin-footer mt-5">
+                                            <!-- <div class="main-signin-footer mt-5">
                                                 <p><a href="">Forgot password?</a></p>
                                                 <p>Don't have an account? <a
                                                         href="{{ url('/' . ($page = 'signup')) }}">Create
                                                         an Account</a></p>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

@@ -32,11 +32,11 @@
 
     <!-- @if (session()->has('Add'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                                <strong>{{ session()->get('Add') }}</strong>
-                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
+                                                                            <strong>{{ session()->get('Add') }}</strong>
+                                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
     @endif -->
 
     <!-- row -->
@@ -66,11 +66,31 @@
                         <div class="row mt-3">
 
 
+
+
                             <div class="col">
+                                <label for="brands_id" class="control-label">Models</label>
+                                <select id="brands_id" name="brands_id" class="form-control SlectBox" required
+                                    onclick="console.log($(this).val())" onchange="console.log('change is firing')">
+                                    <option value="" disabled {{ old('brands_id') ? '' : 'selected' }}>-- Select the
+                                        Model --</option>
+                                    @foreach ($deviceBrands as $db)
+                                        <option value="{{ $db->id }}"
+                                            {{ old('brands_id') == $db->id ? 'selected' : '' }}>{{ $db->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('brands_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+
+                            {{-- <div class="col">
                                 <label for="model" class="control-label"> Model </label>
                                 <input type="text" class="form-control" id="model" name="model"
                                     title="   Please enter your Model " placeholder="Please enter your Model" required>
-                            </div>
+                            </div> --}}
 
                             <div class="col">
                                 <label for="health" class="control-label">Health</label>
