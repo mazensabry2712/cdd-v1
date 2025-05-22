@@ -61,12 +61,28 @@
 
                         {{-- Model --}}
                         <div class="row mt-3">
-                            <div class="col-md-4">
-                                <label for="model" class="control-label">Model</label>
-                                <input type="text" class="form-control" id="model" name="model"
-                                    title="Please enter your Model" placeholder="Please enter your Model" required
-                                    value="{{ old('model', $harddisks->model) }}">
-                            </div>
+
+                                {{-- <div class="col">
+                                   <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Model</label>
+                            <select name="brands_id" id="brands_id" class="form-control" required>
+                                <option value="" selected disabled> --Choose Model--</option>
+                                @foreach ($deviceBrands as $db)
+                                    <option value="{{ $db->id }}">{{ $db->model }}</option>
+                                @endforeach
+                            </select>     </div> --}}
+
+                            <div class="col">
+    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Model</label>
+    <select name="brands_id" id="brands_id" class="form-control" required>
+        <option value="" disabled {{ $harddisks->brands_id ? '' : 'selected' }}> --Choose Model--</option>
+        @foreach ($deviceBrands as $db)
+            <option value="{{ $db->id }}" {{ $harddisks->brands_id == $db->id ? 'selected' : '' }}>
+                {{ $db->model }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
 
                             <div class="col-md-4">
                                 <label for="health" class="control-label">Health</label>

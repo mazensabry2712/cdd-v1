@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,14 +11,15 @@ class Brands extends Model
     protected $table = 'brands';
     protected $fillable = ['serial_number', 'devicebrand_id', 'model'];
 
-  
+    // belongsTo DeviceBrand
     public function deviceBrand()
     {
-        return $this->belongsTo(DeviceBrands::class, 'devicebrand_id');
+        return $this->belongsTo(Devicebrands::class, 'devicebrand_id', 'id');
     }
 
-     public function Harddisk()
+    // hasMany Harddisk
+    public function harddisks()
     {
-        return $this->hasMany(Harddisk::class, 'brands_id');
+        return $this->hasMany(Harddisk::class, 'brands_id', 'id');
     }
 }

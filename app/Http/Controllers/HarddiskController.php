@@ -123,7 +123,9 @@ class HarddiskController extends Controller
     public function edit(string $id)
     {
         $harddisks = Harddisk::findOrFail($id);
-        return view('dashboard.harddisks.edit', compact('harddisks'));
+        $deviceBrands = Brands::all();
+        // $deviceBrands  = Brands::findOrFail($id);
+        return view('dashboard.harddisks.edit', compact('harddisks', 'deviceBrands'));
     }
 
     /**

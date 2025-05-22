@@ -33,7 +33,7 @@ class BrandsController extends Controller
     {
         $validatedData = $request->validate([
             'serial_number' => 'required|string|unique:brands,serial_number',
-'devicebrand_id' => 'required|integer|exists:devicebrands,id',
+            'devicebrand_id' => 'required|integer|exists:devicebrands,id',
             'model' => 'required|string|max:255',
         ]);
         $b_exists = Brands::where('serial_number', $validatedData['serial_number'])->exists();

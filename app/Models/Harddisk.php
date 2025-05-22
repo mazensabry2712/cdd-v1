@@ -1,27 +1,26 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Harddisk extends Model
 {
-      use HasFactory;
+    use HasFactory;
 
-   protected $fillable = [
+    protected $fillable = [
         'brands_id',
         'health',
         'interface',
         'capacity_gb',
+        'capacity_unit',
         'serial_number',
         'pdf',
-      ];
+    ];
 
- public function brand()
-{
-    return $this->belongsTo(Brands::class, 'brands_id');
-}
-
-
+    // belongsTo Brand
+    public function brand()
+    {
+        return $this->belongsTo(Brands::class, 'brands_id', 'id');
+    }
 }

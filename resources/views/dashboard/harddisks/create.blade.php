@@ -69,7 +69,16 @@
 
 
                             <div class="col">
-                                <label for="brands_id" class="control-label">Models</label>
+
+
+                                   <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Model</label>
+                            <select name="brands_id" id="brands_id" class="form-control" required>
+                                <option value="" selected disabled> --Choose Model--</option>
+                                @foreach ($deviceBrands as $db)
+                                    <option value="{{ $db->id }}">{{ $db->model }}</option>
+                                @endforeach
+                            </select>     </div>
+                                {{-- <label for="brands_id" class="control-label">Models</label>
                                 <select id="brands_id" name="brands_id" class="form-control SlectBox" required
                                     onclick="console.log($(this).val())" onchange="console.log('change is firing')">
                                     <option value="" disabled {{ old('brands_id') ? '' : 'selected' }}>-- Select the
@@ -82,8 +91,8 @@
                                 </select>
                                 @error('brands_id')
                                     <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
+                                @enderror --}}
+
 
 
                             {{-- <div class="col">

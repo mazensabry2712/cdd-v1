@@ -129,31 +129,17 @@
                                         @endcan
                                     </td>
                                     {{-- <td>{{ $x->model }}</td> --}}
-                                    <td>
-  {{ optional($harddisk->brand)->model ?? '— غير محدد' }}
-                                          {{-- <td>{{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td> --}}
 
-</td>
+                                    <td>{{ $x->brand->model }}</td>
+
+                                    {{-- <td>{{ optional($brand->deviceBrand)->name ?? '— غير محدد' }}</td> --}}
+
                                     <td>{{ $x->health }}</td>
                                     <td>{{ $x->interface }}</td>
                                     <td>{{ $x->capacity_gb }}</td>
                                     <td>{{ $x->capacity_unit }}</td>
                                     <td>{{ $x->serial_number }}</td>
-                                    {{-- <td class="px-4 py-2 text-center">
-                                        @empty($x->pdf)
-                                            <span class="text-gray-400 italic">— No PDF —</span>
-                                        @else
-                                            <a href="{{ route('harddisks.download', $x->id) }}" target="_blank"
-                                                class="inline-flex items-center justify-center text-red-600 hover:text-red-800 transition duration-200">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1 text-red-600"
-                                                    viewBox="0 0 64 64" fill="currentColor">
-                                                    <path
-                                                        d="M44 2H16a4 4 0 0 0-4 4v52a4 4 0 0 0 4 4h32a4 4 0 0 0 4-4V14L44 2zM44 14H32V2.5L44 14z" />
-                                                </svg>
-                                                <span class="font-medium text-sm">Show PDF</span>
-                                            </a>
-                                        @endempty
-                                    </td> --}}
+
                                     <td class="px-4 py-2 text-center">
                                         @empty($x->pdf)
                                             <span class="text-gray-400 italic">— No PDF —</span>
@@ -162,21 +148,14 @@
                                                 {{-- زر عرض PDF --}}
                                                 <a href="{{ route('harddisks.download', $x->id) }}" target="_blank"
                                                     class="inline-flex items-center text-red-600 hover:text-red-800 transition duration-200">
-                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-red-600"
-                                                        viewBox="0 0 64 64" fill="currentColor">
-                                                        <path
-                                                            d="M44 2H16a4 4 0 0 0-4 4v52a4 4 0 0 0 4 4h32a4 4 0 0 0 4-4V14L44 2zM44 14H32V2.5L44 14z" />
-                                                    </svg> --}}
+                                                
                                                     <span class="font-medium text-sm">Show PDF |</span>
                                                 </a>
 
                                                 {{-- زر طباعة PDF --}}
                                                 <a href="{{ route('harddisks.print', $x->id) }}" target="_blank"
                                                     class="inline-flex items-center text-blue-600 hover:text-blue-800 transition duration-200">
-                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-blue-600"
-                                                        viewBox="0 0 24 24" fill="currentColor">
-                                                        <path d="M6 9V2h12v7h4v13H2V9h4zm2-5v5h8V4H8zm10 7H6v7h12v-7z" />
-                                                    </svg> --}}
+
                                                     <span class="font-medium text-sm">| Print</span>
                                                 </a>
                                             </div>

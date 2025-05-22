@@ -13,4 +13,8 @@ class branches extends Model
         'city',
         'phone',
     ];
+      public function brand()
+    {
+        return $this->belongsTo(Brands::class, 'brands_id', 'id');
+    }
 }

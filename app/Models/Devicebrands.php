@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DeviceBrands extends Model
+class Devicebrands extends Model
 {
     use HasFactory;
 

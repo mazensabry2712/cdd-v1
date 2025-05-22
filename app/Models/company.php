@@ -12,4 +12,8 @@ class company extends Model
         'email',
         'phone',
     ];
+      public function branch()
+    {
+        return $this->hasMany(branches::class, 'compony_id', 'id');
+    }
 }
